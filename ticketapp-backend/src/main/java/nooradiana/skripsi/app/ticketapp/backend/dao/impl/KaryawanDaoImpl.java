@@ -9,14 +9,14 @@ import nooradiana.skripsi.app.ticketapp.backend.entity.Cabang;
 import nooradiana.skripsi.app.ticketapp.backend.entity.Group;
 import nooradiana.skripsi.app.ticketapp.backend.entity.Jabatan;
 import nooradiana.skripsi.app.ticketapp.backend.entity.Karyawan;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
-@Repository("karyawanDao")
 public class KaryawanDaoImpl implements KaryawanDao{
 
-    @Autowired
     private DataSource dataSource;
+
+    public KaryawanDaoImpl(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
     
     @Override
     public Karyawan findKaryawanByUsername(String username) {

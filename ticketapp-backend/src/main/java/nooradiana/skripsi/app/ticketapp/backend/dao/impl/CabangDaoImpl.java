@@ -3,24 +3,25 @@ package nooradiana.skripsi.app.ticketapp.backend.dao.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Date;
 import javax.sql.DataSource;
 import nooradiana.skripsi.app.ticketapp.backend.dao.CabangDao;
 import nooradiana.skripsi.app.ticketapp.backend.entity.Cabang;
 import nooradiana.skripsi.app.ticketapp.backend.entity.Karyawan;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
-@Repository("cabangDao")
 public class CabangDaoImpl implements CabangDao{
-
-    @Autowired
+    
     private DataSource dataSource;
+
+    public CabangDaoImpl(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
     
     @Override
     public Cabang findCabangByKode(String kodeCabang) {
         try {
             Connection c = dataSource.getConnection();
-            String sql = "SELECT * FROM Cabang WHERE kodeCabang = ?";
+            String sql = "SELECT * FROM Cabang WHERE KodeCabang = ?";
             
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setString(1, kodeCabang);
@@ -38,7 +39,7 @@ public class CabangDaoImpl implements CabangDao{
             cabang.setKodeCabang(rs.getString("KodeCabang"));
             cabang.setNamaCabang(rs.getString("NamaCabang"));
             cabang.setUserUpdate(userUpdate);
-            cabang.setDateUpdate(rs.getDate("DateUpdate"));
+            cabang.setDateUpdate((Date) rs.getDate("DateUpdate"));
             
             return cabang;
         } catch (Exception e) {

@@ -3,17 +3,14 @@ package nooradiana.skripsi.app.ticketapp.backend.dao.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Date;
 import javax.sql.DataSource;
 import nooradiana.skripsi.app.ticketapp.backend.dao.JabatanDao;
 import nooradiana.skripsi.app.ticketapp.backend.entity.Jabatan;
 import nooradiana.skripsi.app.ticketapp.backend.entity.Karyawan;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
-@Repository("jabatanDao")
 public class JabatanDaoImpl implements JabatanDao{
     
-    @Autowired
     private DataSource dataSource;
 
     @Override
@@ -38,7 +35,7 @@ public class JabatanDaoImpl implements JabatanDao{
             jabatan.setKodeJabatan(rs.getString("KodeJabatan"));
             jabatan.setNamaJabatan(rs.getString("NamaJabatan"));
             jabatan.setUserUpdate(userUpdate);
-            jabatan.setDateUpdate(rs.getDate("DateUpdate"));
+            jabatan.setDateUpdate((Date) rs.getDate("DateUpdate"));
             
             return jabatan;
         } catch (Exception e) {

@@ -5,15 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.sql.DataSource;
 import nooradiana.skripsi.app.ticketapp.backend.dao.GroupDao;
-import nooradiana.skripsi.app.ticketapp.backend.entity.Cabang;
 import nooradiana.skripsi.app.ticketapp.backend.entity.Group;
 import nooradiana.skripsi.app.ticketapp.backend.entity.Karyawan;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
-@Repository("groupDao")
 public class GroupDaoImpl implements GroupDao{
-    @Autowired
+    
     private DataSource dataSource;
 
     @Override

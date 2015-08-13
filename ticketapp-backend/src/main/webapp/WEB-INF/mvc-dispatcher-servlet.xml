@@ -9,12 +9,6 @@
     <context:annotation-config/>
     <mvc:annotation-config/>
     
-    <bean id="dataSource" class="com.mysql.jdbc.jdbc2.optional.MysqlDataSource">
-        <property name="url" value="jdbc:mysql://localhost/skripsidb" />
-        <property name="user" value="root" />
-        <property name="password" value="Password123" />
-    </bean>
-    
     <context:component-scan base-package="nooradiana.skripsi.app.ticketapp.backend"/>
 
 </beans>
