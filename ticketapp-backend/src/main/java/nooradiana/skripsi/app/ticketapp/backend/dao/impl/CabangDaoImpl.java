@@ -1,0 +1,50 @@
+package nooradiana.skripsi.app.ticketapp.backend.dao.impl;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.sql.DataSource;
+import nooradiana.skripsi.app.ticketapp.backend.dao.CabangDao;
+import nooradiana.skripsi.app.ticketapp.backend.entity.Cabang;
+import nooradiana.skripsi.app.ticketapp.backend.entity.Karyawan;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+@Repository("cabangDao")
+public class CabangDaoImpl implements CabangDao{
+
+    @Autowired
+    private DataSource dataSource;
+    
+    @Override
+    public Cabang findCabangByKode(String kodeCabang) {
+        try {
+            Connection c = dataSource.getConnection();
+            String sql = "SELECT * FROM Cabang WHERE kodeCabang = ?";
+            
+            PreparedStatement ps = c.prepareStatement(sql);
+            ps.setString(1, kodeCabang);
+            
+            ResultSet rs = ps.executeQuery();
+            if(!rs.next()){
+                return null;
+            }
+            
+            Karyawan userUpdate = new Karyawan();
+            userUpdate.setNama(rs.getString("UserUpdate"));
+            
+            Cabang cabang = new Cabang();
+            cabang.setId(rs.getLong("Id"));
+            cabang.setKodeCabang(rs.getString("KodeCabang"));
+            cabang.setNamaCabang(rs.getString("NamaCabang"));
+            cabang.setUserUpdate(userUpdate);
+            cabang.setDateUpdate(rs.getDate("DateUpdate"));
+            
+            return cabang;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+}
